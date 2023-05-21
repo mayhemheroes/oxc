@@ -103,9 +103,14 @@ impl<'a> AstLower<'a> {
         &mut self,
         stmt: &ast::BlockStatement<'a>,
     ) -> Box<'a, hir::BlockStatement<'a>> {
-        self.semantic.enter_block_statement();
+        let has_scope = stmt.body.len() > 1;
+        if has_scope {
+            self.semantic.enter_block_statement();
+        }
         let body = self.lower_statements(&stmt.body);
-        self.semantic.leave_block_statement();
+        if has_scope {
+            self.semantic.leave_block_statement();
+        }
         self.hir.block(stmt.span, body)
     }
 

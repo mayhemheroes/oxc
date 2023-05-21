@@ -1,3 +1,26 @@
 minifier_test262 Summary:
 AST Parsed     : 44676/44676 (100.00%)
-Positive Passed: 44676/44676 (100.00%)
+Positive Passed: 44653/44676 (99.95%)
+Expect to Parse: "language/asi/S7.9_A11_T11.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-array-literal.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-func-expression.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-identifier.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-literal-number.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-literal-string.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-nested.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-new-expr.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-null.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-obj-literal.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-regexp.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-template-literal.js"
+Expect to Parse: "language/module-code/top-level-await/syntax/block-await-expr-this.js"
+Expect to Parse: "language/statements/for-in/S12.6.4_A7_T1.js"
+Expect to Parse: "language/statements/for-in/S12.6.4_A7_T2.js"
+Expect to Parse: "language/statements/let/syntax/let.js"
+Expect to Parse: "language/statements/with/S12.10_A1.3_T4.js"
+Expect to Parse: "language/statements/with/S12.10_A1.3_T5.js"
+Expect to Parse: "language/statements/with/S12.10_A1.8_T1.js"
+Expect to Parse: "language/statements/with/S12.10_A1.8_T2.js"
+Expect to Parse: "language/statements/with/S12.10_A1.8_T3.js"
+Expect to Parse: "language/statements/with/S12.10_A1.8_T4.js"
+Expect to Parse: "language/statements/with/S12.10_A1.8_T5.js"

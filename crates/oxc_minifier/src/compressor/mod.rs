@@ -67,6 +67,19 @@ impl<'a> Compressor<'a> {
 
     /* Statements */
 
+    /// Remove block from single line blocks
+    /// `{ block } -> block`
+    fn compress_block<'b>(&mut self, stmt: &'b mut Statement<'a>) {
+        if let Statement::BlockStatement(block) = stmt {
+            if block.body.len() == 1 {
+                if !matches!(&block.body[0], Statement::Declaration(_)) {
+                    *stmt = block.body.remove(0);
+                    self.compress_block(stmt);
+                }
+            }
+        }
+    }
+
     #[allow(clippy::unused_self)]
     fn drop_empty<'b>(&mut self, stmt: &'b Statement<'a>) -> bool {
         matches!(stmt, Statement::EmptyStatement(_))
@@ -198,9 +211,16 @@ impl<'a, 'b> VisitMut<'a, 'b> for Compressor<'a> {
     }
 
     fn visit_statement(&mut self, stmt: &'b mut Statement<'a>) {
+        // dbg!(&stmt);
+        self.compress_block(stmt);
+        dbg!(&stmt);
         self.compress_while(stmt);
         self.visit_statement_match(stmt);
     }
+
+    // fn visit_block_statement(&mut self, stmt: &'b mut BlockStatement<'a>) {
+    // self.visit_statements(&mut stmt.body);
+    // }
 
     fn visit_expression(&mut self, expr: &'b mut Expression<'a>) {
         if self.compress_undefined(expr) {
