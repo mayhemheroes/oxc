@@ -30,4 +30,7 @@ fn main() {
     let options = MinifierOptions { mangle, ..MinifierOptions::default() };
     let printed = Minifier::new(&source_text, source_type, options).build();
     println!("{printed}");
+
+    let printed = Minifier::new(&printed, source_type, options).build();
+    println!("{printed}");
 }

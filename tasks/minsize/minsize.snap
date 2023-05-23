@@ -9,5 +9,5 @@ Original   -> Minified   -> Gzip       Brotli
 1.25 MB    -> 680.00 kB  -> 167.24 kB  135.41 kB  three.js
 2.14 MB    -> 750.10 kB  -> 182.49 kB  139.48 kB  victory.js
 3.20 MB    -> 1.04 MB    -> 335.34 kB  271.81 kB  echarts.js
-6.69 MB    -> 2.42 MB    -> 500.07 kB  391.12 kB  antd.js
+6.69 MB    -> 2.42 MB    -> 500.06 kB  392.25 kB  antd.js
 10.82 MB   -> 3.55 MB    -> 916.39 kB  705.43 kB  typescript.js
