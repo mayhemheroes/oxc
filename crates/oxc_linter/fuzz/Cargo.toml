@@ -1,0 +1,30 @@
+[package]
+name = "oxc_linter-fuzz"
+version = "0.0.0"
+publish = false
+edition = "2021"
+
+[package.metadata]
+cargo-fuzz = true
+
+[dependencies]
+libfuzzer-sys = { version = "0.4", features = ["arbitrary-derive"] }
+
+oxc_allocator = { path = "../../oxc_allocator" }
+oxc_linter = { path = ".." }
+oxc_parser = { path = "../../oxc_parser" }
+oxc_semantic = { path = "../../oxc_semantic" }
+oxc_span = { path = "../../oxc_span" }
+
+# Prevent this from interfering with workspaces
+[workspace]
+members = ["."]
+
+[profile.release]
+debug = 1
+
+[[bin]]
+name = "lint"
+path = "fuzz_targets/lint.rs"
+test = false
+doc = false
