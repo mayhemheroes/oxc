@@ -20,10 +20,6 @@ inputs:
     default: true
     required: false
     type: boolean
-  save-cache:
-    default: false
-    required: false
-    type: boolean
 
 runs:
   using: composite
@@ -70,9 +66,20 @@ runs:
       shell: bash
       run: rustup show
 
-    - name: Cache on ${{ github.ref_name }}
-      uses: Swatinem/rust-cache@v2
-      if: ${{ inputs.restore-cache == 'true' }}
+    - name: Restore Cargo Cache
+      uses: actions/cache/restore@v3
       with:
-        shared-key: warm
-        save-if: ${{ inputs.save-cache == 'true' }}
+        path: |
+          ~/.cargo/registry/index/
+          ~/.cargo/registry/cache/
+          ~/.cargo/git/db/
+        key: cargo-cache-${{ runner.os }}-${{ hashFiles('Cargo.lock') }}
+        restore-keys: |
+          cargo-cache-${{ runner.os }}-
+
+    - name: Restore Rust Cache
+      uses: actions/cache/restore@v3
+      with:
+        path: |
+          target/
+        key: rust-cache-${{ runner.os }}

@@ -9,6 +9,7 @@ on:
   push:
     branches:
       - main
+      - ci-cache
     paths-ignore:
       - '**/*.md'
 
@@ -35,8 +36,6 @@ jobs:
 
       - name: Install Rust Toolchain
         uses: ./.github/actions/rustup
-        with:
-          save-cache: ${{ github.ref_name == 'main' }}
 
       # NAPI crashes nextest on windows
       # https://github.com/napi-rs/napi-rs/issues/1405
@@ -53,6 +52,30 @@ jobs:
           cargo ck --release # for benchmark
           cargo ck
           cargo nextest run --workspace --all-targets --all-features --no-run
+
+      - name: Save Cargo Cache
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            ~/.cargo/registry/index/
+            ~/.cargo/registry/cache/
+            ~/.cargo/git/db/
+          key: cargo-cache-${{ runner.os }}-${{ hashFiles('Cargo.lock') }}
+
+      - name: Install cargo-sweep
+        uses: taiki-e/install-action@v2
+        with:
+          tool: cargo-sweep
+
+      - name: Run cargo-sweep
+        run: cargo sweep --time 14
+
+      - name: Save Rust Cache
+        uses: actions/cache/save@v3
+        with:
+          path: |
+            target/
+          key: rust-cache-${{ runner.os }}
 
   typos:
     name: Spell Check
