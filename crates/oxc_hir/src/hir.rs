@@ -66,7 +66,6 @@ pub enum Expression<'a> {
     MemberExpression(Box<'a, MemberExpression<'a>>),
     NewExpression(Box<'a, NewExpression<'a>>),
     ObjectExpression(Box<'a, ObjectExpression<'a>>),
-    ParenthesizedExpression(Box<'a, ParenthesizedExpression<'a>>),
     SequenceExpression(Box<'a, SequenceExpression<'a>>),
     TaggedTemplateExpression(Box<'a, TaggedTemplateExpression<'a>>),
     ThisExpression(Box<'a, ThisExpression>),
@@ -215,7 +214,6 @@ impl<'a> Expression<'a> {
             Self::UnaryExpression(expr) => expr.precedence(),   // 16,
             Self::UpdateExpression(expr) => expr.precedence(),  // 16
             Self::AwaitExpression(_) | Self::NewExpression(_) => 16,
-            Self::ParenthesizedExpression(_) => 19,
             _ => 18,
         }
     }
@@ -1009,15 +1007,6 @@ pub struct ChainExpression<'a> {
 pub enum ChainElement<'a> {
     CallExpression(Box<'a, CallExpression<'a>>),
     MemberExpression(Box<'a, MemberExpression<'a>>),
-}
-
-/// Parenthesized Expression
-#[derive(Debug, Hash)]
-#[cfg_attr(feature = "serde", derive(Serialize), serde(tag = "type"))]
-pub struct ParenthesizedExpression<'a> {
-    #[cfg_attr(feature = "serde", serde(flatten))]
-    pub span: Span,
-    pub expression: Expression<'a>,
 }
 
 /// Statements
